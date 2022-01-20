@@ -66,6 +66,7 @@ export default class App extends React.Component {
         valorInputNome={this.state.valorInputNome}
         />
         <Produtos productlist={this.state.productList} />
+        <Carrinho/>
       </div>
     );
   }
