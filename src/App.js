@@ -55,36 +55,60 @@ export default class App extends React.Component {
 
     produtosNoCarrinho: []
   }
-  
-  adicionaProduto = (produto) => {
-    console.log("cheguei")
-    const produtoAdicionado = {...this.state.productList[produto.id - 1]}
-    const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
 
-    this.setState({produtosNoCarrinho: listaComProdutoAdicionado})
-    
-}
+  adicionaProduto = (id) => {
+      const listaDeUmProduto = this.state.productList.filter((produto) => {
+        if (id === produto.id) {
+          return produto
+        }
+      })
+  
+      const produtoAdicionado = {
+        ...listaDeUmProduto[0],
+        quantidade: 1
+      }
+
+      const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
+  
+      this.setState({ produtosNoCarrinho: listaComProdutoAdicionado })
+  }
+
+  removeProduto = (id) => {
+    const listaComProdutoRemovido = this.state.produtosNoCarrinho.filter((produto) => {
+      if (id !== produto.id) {
+        return produto
+      }
+    })
+
+    this.setState({ produtosNoCarrinho: listaComProdutoRemovido })
+  }
 
 
   render() {
     return (
       <AppContainer>
-        <FiltroEsquerdo 
-        id={this.state.productList.id}
-        nome={this.state.productList.nome}
-        valor={this.state.productList.valor}
-        foto={this.state.productList.foto}
-        valorInputMax={this.state.valorInputMax}
-        valorInputMin={this.state.valorInputMin}
-        valorInputNome={this.state.valorInputNome}
+        <FiltroEsquerdo
+          id={this.state.productList.id}
+          nome={this.state.productList.nome}
+          valor={this.state.productList.valor}
+          foto={this.state.productList.foto}
+          valorInputMax={this.state.valorInputMax}
+          valorInputMin={this.state.valorInputMin}
+          valorInputNome={this.state.valorInputNome}
         />
-        <Produtos 
-        productList={this.state.productList}
-        adicionaProduto={this.adicionaProduto}
+        <Produtos
+          id={this.state.productList.id}
+          productList={this.state.productList}
+          adicionaProduto={this.adicionaProduto}
+          produtosNoCarrinho={this.state.produtosNoCarrinho}
+          foto={this.state.productList.foto}
+          valor={this.state.productList.valor}
+          nome={this.state.productList.nome}
         />
-        <Carrinho 
-        productList={this.state.productList}
-        produtosNoCarrinho={this.state.produtosNoCarrinho}
+        <Carrinho
+          productList={this.state.productList}
+          produtosNoCarrinho={this.state.produtosNoCarrinho}
+          removeProduto={this.removeProduto}
         />
       </AppContainer>
     );

@@ -12,7 +12,7 @@ class ProdutoCarrinho extends React.Component {
     render () {
         return <ContainerProduto>
        <p>{this.props.quantidade}</p>
-       <p>{this.props.name}</p>
+       <p>{this.props.nome}</p>
        <button onClick={() => this.props.removeProduto(this.props.id)}>Remover</button>
     </ContainerProduto>
     }

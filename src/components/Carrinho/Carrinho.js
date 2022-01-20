@@ -19,57 +19,41 @@ const Total = styled.p`
 `
 
 class Carrinho extends React.Component {
-    
-     adicionaProduto = (produto) => {
-        const produtoAdicionado = {...this.props.productList[produto.id - 1]}
-        const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
 
-        this.setState({produtosNoCarrinho: listaComProdutoAdicionado})
-    }
-
-    // removeProduto = (id) => {
-    //     const listaComProdutoRemovido = this.props.productList.filter ((produto) => {
-    //         if (id !== produto.id) {
-    //             return produto
-    //         }
-    //     })
-
-    //     this.setState({productList: listaComProdutoRemovido})
-    // }
-
-    render () {
+    render() {
         const listaDeProdutos = this.props.produtosNoCarrinho.map((produto) => {
             return (<ProdutoCarrinho key={produto.id}
                 id={produto.id}
-                quantidade= "1"
-                name={produto.name}
-                removeProduto={this.removeProduto}
-                />
+                quantidade={produto.quantidade}
+                nome={produto.nome}
+                removeProduto={this.props.removeProduto}
+            />
             )
         })
 
-        const listaDeValores = this.props.produtosNoCarrinho.map((produto) => {            
-            return produto.value
+        const listaDeValores = this.props.produtosNoCarrinho.map((produto) => {
+            return produto.valor
         })
 
         const valorTotal = (array) => {
             let soma = 0
             for (let i = 0; i < array.length; i++)
-            soma = soma + array[i]
+                soma = soma + array[i]
             return soma
         }
 
         return (
-        <ContainerCarrinho>
-            <Titulo>Carrinho:</Titulo>
+            <ContainerCarrinho>
+                <Titulo>Carrinho:</Titulo>
 
-            <div>
-                {listaDeProdutos}
-            </div>
+                <div>
+                    {listaDeProdutos}
+                </div>
 
-            <Total>Valor total: R${valorTotal(listaDeValores)}</Total>
-        </ContainerCarrinho>
-        )}
+                <Total>Valor total: R${valorTotal(listaDeValores)}</Total>
+            </ContainerCarrinho>
+        )
+    }
 }
 
 export default Carrinho
