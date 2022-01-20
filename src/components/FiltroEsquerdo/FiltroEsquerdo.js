@@ -1,11 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import aquaridas from "./src/components/img/aquaridas.jpeg";
-// import leonidas from "./src/components/img/leonidas.jpeg";
-// import liridas from "./src/components/img/liridas.jpeg";
-// import orionidas from "./src/components/img/orionidas.jpeg";
-// import perseidas from "./src/components/img/perseidas.jpeg";
-// import tauridas from "./src/components/img/tauridas.jpeg";
 
 const TagBody = styled.div`
   display: flex;
