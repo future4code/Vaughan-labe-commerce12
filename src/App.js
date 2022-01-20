@@ -1,6 +1,7 @@
 import React from "react";
 import FiltroEsquerdo from "./components/FiltroEsquerdo/FiltroEsquerdo";
 import Produtos from "./components/Produtos/Produtos";
+import Carrinho from "./components/Carrinho/Carrinho"
 import styled from "styled-components";
 
 const AppContainer = styled.div`
@@ -10,7 +11,7 @@ const AppContainer = styled.div`
 
 export default class App extends React.Component {
   state = {
-    productList = [
+    productList: [
       {
         id: 1,
         nome: "Perseidas",
@@ -51,11 +52,23 @@ export default class App extends React.Component {
     valorInputMin: "",
     valorInputMax: "",
     valorInputNome: "",
+
+    produtosNoCarrinho: []
   }
+  
+  adicionaProduto = (produto) => {
+    console.log("cheguei")
+    const produtoAdicionado = {...this.state.productList[produto.id - 1]}
+    const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
+
+    this.setState({produtosNoCarrinho: listaComProdutoAdicionado})
+    
+}
+
 
   render() {
     return (
-      <div>
+      <AppContainer>
         <FiltroEsquerdo 
         id={this.state.productList.id}
         nome={this.state.productList.nome}
@@ -65,9 +78,15 @@ export default class App extends React.Component {
         valorInputMin={this.state.valorInputMin}
         valorInputNome={this.state.valorInputNome}
         />
-        <Produtos productlist={this.state.productList} />
-        <Carrinho/>
-      </div>
+        <Produtos 
+        productList={this.state.productList}
+        adicionaProduto={this.adicionaProduto}
+        />
+        <Carrinho 
+        productList={this.state.productList}
+        produtosNoCarrinho={this.state.produtosNoCarrinho}
+        />
+      </AppContainer>
     );
   }
 }
