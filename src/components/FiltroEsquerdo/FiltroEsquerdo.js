@@ -71,8 +71,6 @@ class FiltroEsquerdo extends React.Component {
     valorInputMin: "",
     valorInputMax: "",
     valorInputNome: "",
-    sortingParameter: "value",
-    ordem: 1,
   };
 
   //FUNÇOES QUE PEGA O VALOR DO INPUT E COLOCA NO STATE

@@ -8,52 +8,65 @@ const AppContainer = styled.div`
   grid-template-columns: 1fr 3f 1fr;
 `;
 
-const ProductList = [
-  {
-    id: 1,
-    nome: "Perseidas",
-    valor: 150000,
-    foto: "https://picsum.photos/200/200?a=1",
-  },
-  {
-    id: 2,
-    nome: "Leônidas",
-    valor: 350000,
-    foto: "https://picsum.photos/200/200?a=2",
-  },
-  {
-    id: 3,
-    nome: "Líridas",
-    valor: 200000,
-    foto: "https://picsum.photos/200/200?a=3",
-  },
-  {
-    id: 4,
-    nome: "Oriônidas",
-    valor: 450000,
-    foto: "https://picsum.photos/200/200?a=4",
-  },
-  {
-    id: 5,
-    nome: "Eta Aquáridas",
-    valor: 600000,
-    foto: "https://picsum.photos/200/200?a=5",
-  },
-  {
-    id: 6,
-    nome: "Táuridas do Sul",
-    valor: 810000,
-    foto: "https://picsum.photos/200/200?a=6",
-  },
-];
+export default class App extends React.Component {
+  state = {
+    productList = [
+      {
+        id: 1,
+        nome: "Perseidas",
+        valor: 150000,
+        foto: "https://picsum.photos/200/200?a=1",
+      },
+      {
+        id: 2,
+        nome: "Leônidas",
+        valor: 350000,
+        foto: "https://picsum.photos/200/200?a=2",
+      },
+      {
+        id: 3,
+        nome: "Líridas",
+        valor: 200000,
+        foto: "https://picsum.photos/200/200?a=3",
+      },
+      {
+        id: 4,
+        nome: "Oriônidas",
+        valor: 450000,
+        foto: "https://picsum.photos/200/200?a=4",
+      },
+      {
+        id: 5,
+        nome: "Eta Aquáridas",
+        valor: 600000,
+        foto: "https://picsum.photos/200/200?a=5",
+      },
+      {
+        id: 6,
+        nome: "Táuridas do Sul",
+        valor: 810000,
+        foto: "https://picsum.photos/200/200?a=6",
+      },
+    ],
+    valorInputMin: "",
+    valorInputMax: "",
+    valorInputNome: "",
+  }
 
-function App() {
-  return (
-    <div>
-      <FiltroEsquerdo />
-      <Produtos productlist={ProductList} />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <FiltroEsquerdo 
+        id={this.state.productList.id}
+        nome={this.state.productList.nome}
+        valor={this.state.productList.valor}
+        foto={this.state.productList.foto}
+        valorInputMax={this.state.valorInputMax}
+        valorInputMin={this.state.valorInputMin}
+        valorInputNome={this.state.valorInputNome}
+        />
+        <Produtos productlist={this.state.productList} />
+      </div>
+    );
+  }
 }
-
-export default App;
