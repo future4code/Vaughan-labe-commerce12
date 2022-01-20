@@ -74,10 +74,40 @@ export default class App extends React.Component {
     valorInputMax: "",
     valorInputNome: "",
 
-    ordem: 1,
 
     produtosNoCarrinho: [],
-  };
+    
+      ordem: 1,
+  }
+
+  adicionaProduto = (id) => {
+      const listaDeUmProduto = this.state.productList.filter((produto) => {
+        if (id === produto.id) {
+          return produto
+        }
+      })
+  
+      const produtoAdicionado = {
+        ...listaDeUmProduto[0],
+        quantidade: 1
+      }
+
+      const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
+  
+      this.setState({ produtosNoCarrinho: listaComProdutoAdicionado })
+  }
+
+  removeProduto = (id) => {
+    const listaComProdutoRemovido = this.state.produtosNoCarrinho.filter((produto) => {
+      if (id !== produto.id) {
+        return produto
+      }
+    })
+
+    this.setState({ produtosNoCarrinho: listaComProdutoRemovido })
+  }
+
+
 
   inputMin = (e) => {
     this.setState({ valorInputMin: e.target.value });
@@ -107,6 +137,7 @@ export default class App extends React.Component {
   ordenarProdutos = (e) => {
     this.setState({ ordem: e.target.value });
   };
+
 
 
   render() {
@@ -165,7 +196,9 @@ export default class App extends React.Component {
       })
 
     return (
-      <AppContainer>
+      <AppContainer>    
+       
+       
         <DivEsquerda>
           <FiltroEsquerdo
             funcaoInputMin={this.inputMin}
@@ -191,18 +224,23 @@ export default class App extends React.Component {
           </label>
         </HeaderProdutos>
 
-          {/* <Produtos
-            cardFiltrado={cardsFiltrados}
-            productList={this.state.productList}
-            adicionaProduto={this.adicionaProduto}
-          /> */}
+       <Produtos
+          id={this.state.productList.id}
+          productList={this.state.productList}
+          adicionaProduto={this.adicionaProduto}
+          produtosNoCarrinho={this.state.produtosNoCarrinho}
+          foto={this.state.productList.foto}
+          valor={this.state.productList.valor}
+          nome={this.state.productList.nome}
+        />
           {cardsFiltrados}
         </DivCentro>
-        <DivDireita>
-          <Carrinho
-            productList={this.state.productList}
-            produtosNoCarrinho={this.state.produtosNoCarrinho}
-          />
+        <DivDireita>       
+           <Carrinho
+          productList={this.state.productList}
+          produtosNoCarrinho={this.state.produtosNoCarrinho}
+          removeProduto={this.removeProduto}
+        />
         </DivDireita>
       </AppContainer>
     );

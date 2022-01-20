@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CardProdutos from "./CardProdutos";
 
 const ContainerProdutos = styled.div`
   border: 1px solid black;
@@ -50,14 +51,13 @@ export default class Produtos extends React.Component {
             })
             .map((produto) => {
               return (
-                <>
-                <img src={produto.foto} />
-                <div>
-                <p>{produto.nome}</p>
-          <p>R${produto.valor},00</p>
-          <button onClick={this.props.adicionaProduto}>Adicionar ao carrinho</button>
-        </div>
-                </>
+                <CardProdutos
+                  id={produto.id}
+                  nome={produto.nome}
+                  valor={produto.valor}
+                  foto={produto.foto}
+                  adicionaProduto={this.props.adicionaProduto}
+                />
               );
             })} */}
         </ListaProdutos>
