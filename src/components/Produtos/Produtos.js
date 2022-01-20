@@ -20,18 +20,11 @@ const ListaProdutos = styled.div`
 `;
 export default class Produtos extends React.Component {
   state = {
-    sortingParameter: "valor",
     ordem: 1,
   };
 
-  onChangeOrdenarProdutos = (e) => {
+  ordenarProdutos = (e) => {
     this.setState({ ordem: e.target.value });
-  };
-
-  ordenarProdutos = () => {
-    this.props.productlist.sort((a, b) => {
-      this.state.ordem * (a.valor - b.valor);
-    });
   };
 
   render() {
@@ -39,22 +32,26 @@ export default class Produtos extends React.Component {
       <ContainerProdutos>
         <HeaderProdutos>
           <p>Quantidade de produtos: {this.props.productlist.length} </p>
-          <label>
+          <label for="ordem">
             Ordenação:
-            <select value={this.state.ordem}>
-              <option value={1} onChange={this.onChangeOrdenarProdutos}>
-                Crescente
-              </option>
-              <option value={-1} onChange={this.onChangeOrdenarProdutos}>
-                Decrescente
-              </option>
+            <select
+              name="ordem"
+              value={this.state.ordem}
+              onChange={this.ordenarProdutos}
+            >
+              <option value={1}>Crescente</option>
+              <option value={-1}>Decrescente</option>
             </select>
           </label>
         </HeaderProdutos>
         <ListaProdutos>
-          {this.props.productlist.map((produto) => {
-            return <CardProdutos produto={produto} />;
-          })}
+          {this.props.productlist
+            .sort((a, b) => {
+              return this.state.ordem * (a.valor - b.valor);
+            })
+            .map((produto) => {
+              return <CardProdutos produto={produto} />;
+            })}
         </ListaProdutos>
       </ContainerProdutos>
     );

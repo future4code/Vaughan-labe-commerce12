@@ -19,7 +19,7 @@ export default class CardProdutos extends React.Component {
         <img src={produto.foto} />
         <DescritivoCard>
           <p>{produto.nome}</p>
-          <p>R${produto.preco},00</p>
+          <p>R${produto.valor},00</p>
           <button>Adicionar ao carrinho</button>
         </DescritivoCard>
       </CardContainer>
