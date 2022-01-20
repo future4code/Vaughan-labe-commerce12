@@ -15,21 +15,22 @@ const HeaderProdutos = styled.div`
 const ListaProdutos = styled.div`
   display: grid;
   grid-template-columns: repeat(3 1fr);
+  grid-template-rows: 1fr 1fr 1fr;
 `;
 export default class Produtos extends React.Component {
-  state = {
-    ordem: 1,
-  };
+  // state = {
+  //   ordem: 1,
+  // };
 
-  ordenarProdutos = (e) => {
-    this.setState({ ordem: e.target.value });
-  };
+  // ordenarProdutos = (e) => {
+  //   this.setState({ ordem: e.target.value });
+  // };
 
   render() {
     return (
       <ContainerProdutos>
         <HeaderProdutos>
-          <p>Quantidade de produtos: {this.props.productList.length} </p>
+          <p>Quantidade de produtos: {this.props.cardFiltrado.length} </p>
           <label for="ordem">
             Ordenação:
             <select
@@ -43,7 +44,7 @@ export default class Produtos extends React.Component {
           </label>
         </HeaderProdutos>
         <ListaProdutos>
-          {this.props.productList
+          {/* {this.props.cardFiltrado
             .sort((a, b) => {
               return this.state.ordem * (a.valor - b.valor);
             })
@@ -58,7 +59,7 @@ export default class Produtos extends React.Component {
         </div>
                 </>
               );
-            })}
+            })} */}
         </ListaProdutos>
       </ContainerProdutos>
     );
