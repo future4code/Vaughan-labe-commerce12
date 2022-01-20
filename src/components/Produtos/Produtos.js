@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import FiltroEsquerdo from "../FiltroEsquerdo/FiltroEsquerdo";
-import CardProdutos from "./CardProdutos";
 
 const ContainerProdutos = styled.div`
   border: 1px solid black;
@@ -31,7 +29,7 @@ export default class Produtos extends React.Component {
     return (
       <ContainerProdutos>
         <HeaderProdutos>
-          <p>Quantidade de produtos: {this.props.productlist.length} </p>
+          <p>Quantidade de produtos: {this.props.productList.length} </p>
           <label for="ordem">
             Ordenação:
             <select
@@ -45,12 +43,21 @@ export default class Produtos extends React.Component {
           </label>
         </HeaderProdutos>
         <ListaProdutos>
-          {this.props.productlist
+          {this.props.productList
             .sort((a, b) => {
               return this.state.ordem * (a.valor - b.valor);
             })
             .map((produto) => {
-              return <CardProdutos produto={produto} />;
+              return (
+                <>
+                <img src={produto.foto} />
+                <div>
+                <p>{produto.nome}</p>
+          <p>R${produto.valor},00</p>
+          <button onClick={this.props.adicionaProduto}>Adicionar ao carrinho</button>
+        </div>
+                </>
+              );
             })}
         </ListaProdutos>
       </ContainerProdutos>
