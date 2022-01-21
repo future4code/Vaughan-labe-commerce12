@@ -17,15 +17,8 @@ const TagMaeFiltro = styled.div`
   margin: 1% 1% 0 1%;
 `;
 
-
 class FiltroEsquerdo extends React.Component {
-
-  componentDidUpdate() {}
-
-
   render() {
-
-
     return (
       <TagBody>
         <TagMaeFiltro>
@@ -53,6 +46,7 @@ class FiltroEsquerdo extends React.Component {
             onChange={this.props.funcaoInputNome}
             placeholder="produto"
           />
+          <button onClick={this.props.limparFiltros}>Limpar Filtros</button>
         </TagMaeFiltro>
       </TagBody>
     );
