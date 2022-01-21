@@ -3,7 +3,12 @@ import FiltroEsquerdo from "./components/FiltroEsquerdo/FiltroEsquerdo";
 import Produtos from "./components/Produtos/Produtos";
 import Carrinho from "./components/Carrinho/Carrinho";
 import styled from "styled-components";
-// import aquaridas from "./components/img/aquaridas.jpeg"
+import aquaridas from "./components/img/aquaridas.jpeg"
+import perseidas from "./components/img/perseidas.jpeg"
+import liridas from "./components/img/liridas.jpeg"
+import orionidas from "./components/img/orionidas.jpeg"
+import tauridas from "./components/img/tauridas.jpeg"
+import leonidas from "./components/img/leonidas.jpeg"
 
 const AppContainer = styled.div`
   display: grid;
@@ -16,6 +21,10 @@ const DivEsquerda = styled.div`
 
 const DivCentro = styled.div`
   grid-column-start: 2/3;
+
+  img{
+    width: 30%;
+  }
 `;
 
 const DivDireita = styled.div`
@@ -29,6 +38,7 @@ const HeaderProdutos = styled.div`
   padding: 15px;
 `;
 
+
 export default class App extends React.Component {
   state = {
     productList: [
@@ -36,37 +46,43 @@ export default class App extends React.Component {
         id: 1,
         nome: "Perseidas",
         valor: 150000,
-        foto: "https://picsum.photos/200/200?a=1",
+        foto: perseidas,
+        qtd: 1
       },
       {
         id: 2,
         nome: "Leônidas",
         valor: 350000,
-        foto: "https://picsum.photos/200/200?a=2",
+        foto: leonidas,
+        qtd: 1
       },
       {
         id: 3,
         nome: "Líridas",
         valor: 200000,
-        foto: "https://picsum.photos/200/200?a=3",
+        foto: liridas,
+        qtd: 1
       },
       {
         id: 4,
         nome: "Oriônidas",
         valor: 450000,
-        foto: "https://picsum.photos/200/200?a=4",
+        foto: orionidas,
+        qtd: 1
       },
       {
         id: 5,
         nome: "Eta Aquáridas",
         valor: 600000,
-        foto: "https://picsum.photos/200/200?a=5",
+        foto: aquaridas,
+        qtd: 1
       },
       {
         id: 6,
         nome: "Táuridas do Sul",
         valor: 810000,
-        foto: "https://picsum.photos/200/200?a=6",
+        foto: tauridas,
+        qtd: 1
       },
     ],
 
@@ -74,40 +90,81 @@ export default class App extends React.Component {
     valorInputMax: "",
     valorInputNome: "",
 
-
     produtosNoCarrinho: [],
-    
-      ordem: 1,
-  }
+
+    ordem: 1,
+  };
+
+
 
   adicionaProduto = (id) => {
+
+
+    const lala = this.state.produtosNoCarrinho.map((item) => {
+                
+             return item.id
+           
+    });
+
+
+    if(lala.includes(id)){
+
+      const listaMaisUm = this.state.produtosNoCarrinho.map((item) => {  
+        if(id === item.id){
+        return {
+          ...item, 
+          qtd: item.qtd + 1 
+         }
+       }
+        return item
+      })
+
+      this.setState({produtosNoCarrinho: listaMaisUm});
+
+    }else{
       const listaDeUmProduto = this.state.productList.filter((produto) => {
         if (id === produto.id) {
-          return produto
+
+          return produto;
+
         }
-      })
+  
+      });
+  
   
       const produtoAdicionado = {
         ...listaDeUmProduto[0],
-        quantidade: 1
-      }
-
-      const listaComProdutoAdicionado = [...this.state.produtosNoCarrinho, produtoAdicionado]
+      };
   
-      this.setState({ produtosNoCarrinho: listaComProdutoAdicionado })
-  }
+      const novaLista = [...this.state.produtosNoCarrinho, produtoAdicionado]
+  
+      this.setState({produtosNoCarrinho: novaLista});
+
+    }   
+
+  };
 
   removeProduto = (id) => {
-    const listaComProdutoRemovido = this.state.produtosNoCarrinho.filter((produto) => {
-      if (id !== produto.id) {
-        return produto
+
+    const novoCart = this.state.produtosNoCarrinho.map((item) => {
+      if (item.id === id){
+        return {...item, qtd: item.qtd - 1}
       }
-    })
+      return item;
+    }).filter((item) => item.qtd > 0)
 
-    this.setState({ produtosNoCarrinho: listaComProdutoRemovido })
-  }
+    this.setState({produtosNoCarrinho: novoCart})
 
+    // const listaComProdutoRemovido = this.state.produtosNoCarrinho.filter(
+    //   (produto) => {
+    //     if (id !== produto.id) {
+    //       return produto;
+    //     }
+    //   }
+    // );
 
+    // this.setState({ produtosNoCarrinho: listaComProdutoRemovido });
+  };
 
   inputMin = (e) => {
     this.setState({ valorInputMin: e.target.value });
@@ -121,26 +178,28 @@ export default class App extends React.Component {
     this.setState({ valorInputNome: e.target.value });
   };
 
-  adicionaProduto = (produto) => {
-    console.log("cheguei");
-    const produtoAdicionado = { ...this.state.productList[produto.id - 1] };
-    const listaComProdutoAdicionado = [
-      ...this.state.produtosNoCarrinho,
-      produtoAdicionado,
-    ];
+  // adicionaProduto = (produto) => {
+  //   console.log("cheguei");
+  //   const produtoAdicionado = { ...this.state.productList[produto.id - 1] };
+  //   const listaComProdutoAdicionado = [
+  //     ...this.state.produtosNoCarrinho,
+  //     produtoAdicionado,
+  //   ];
 
-    this.setState({ produtosNoCarrinho: listaComProdutoAdicionado });
-  };
-
-
+  //   this.setState({ produtosNoCarrinho: listaComProdutoAdicionado });
+  // };
 
   ordenarProdutos = (e) => {
     this.setState({ ordem: e.target.value });
   };
 
-
-
   render() {
+
+    const qtdProdutos = this.state.produtosNoCarrinho.map((i) => {
+      return i.qtd
+    })
+
+
     const cardsFiltrados = this.state.productList
       //FAZ O FILTRO PELO VALOR MINIMO
       .filter((item) => {
@@ -185,62 +244,51 @@ export default class App extends React.Component {
       .map((produto) => {
         return (
           <>
-          <img src={produto.foto} />
-          <div>
-          <p>{produto.nome}</p>
-    <p>R${produto.valor},00</p>
-    <button onClick={this.props.adicionaProduto}>Adicionar ao carrinho</button>
-  </div>
+            <img src={produto.foto} />
+            <div>
+              <p>{produto.nome}</p>
+              <p>R${produto.valor},00</p>
+              <button onClick={() => this.adicionaProduto(produto.id)}>
+                Adicionar ao carrinho
+              </button>
+            </div>
           </>
         );
-      })
+      });
 
     return (
-      <AppContainer>    
-       
-       
+      <AppContainer>
         <DivEsquerda>
           <FiltroEsquerdo
             funcaoInputMin={this.inputMin}
             funcaoInputMax={this.inputMax}
             funcaoInputNome={this.inputNome}
           />
-          {/* {cardsFiltrados} */}
         </DivEsquerda>
         <DivCentro>
-
-        <HeaderProdutos>
-          <p>Quantidade de produtos: {cardsFiltrados.length} </p>
-          <label for="ordem">
-            Ordenação:
-            <select
-              name="ordem"
-              value={this.state.ordem}
-              onChange={this.ordenarProdutos}
-            >
-              <option value={1}>Crescente</option>
-              <option value={-1}>Decrescente</option>
-            </select>
-          </label>
-        </HeaderProdutos>
-
-       <Produtos
-          id={this.state.productList.id}
-          productList={this.state.productList}
-          adicionaProduto={this.adicionaProduto}
-          produtosNoCarrinho={this.state.produtosNoCarrinho}
-          foto={this.state.productList.foto}
-          valor={this.state.productList.valor}
-          nome={this.state.productList.nome}
-        />
+          <HeaderProdutos>
+            <p>Quantidade de produtos: {cardsFiltrados.length} </p>
+            <label for="ordem">
+              Ordenação:
+              <select
+                name="ordem"
+                value={this.state.ordem}
+                onChange={this.ordenarProdutos}
+              >
+                <option value={1}>Crescente</option>
+                <option value={-1}>Decrescente</option>
+              </select>
+            </label>
+          </HeaderProdutos>
           {cardsFiltrados}
         </DivCentro>
-        <DivDireita>       
-           <Carrinho
-          productList={this.state.productList}
-          produtosNoCarrinho={this.state.produtosNoCarrinho}
-          removeProduto={this.removeProduto}
-        />
+        <DivDireita>
+          <Carrinho
+            quantidade={qtdProdutos}
+            productList={this.state.productList}
+            produtosNoCarrinho={this.state.produtosNoCarrinho}
+            removeProduto={this.removeProduto}
+          />
         </DivDireita>
       </AppContainer>
     );

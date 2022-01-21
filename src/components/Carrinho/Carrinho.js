@@ -19,26 +19,29 @@ const Total = styled.p`
 
 class Carrinho extends React.Component {
 
+
+
     render() {
+
         const listaDeProdutos = this.props.produtosNoCarrinho.map((produto) => {
             return (<ProdutoCarrinho key={produto.id}
                 id={produto.id}
-                quantidade={produto.quantidade}
+                quantidade={produto.qtd}
                 nome={produto.nome}
-                removeProduto={this.props.removeProduto}
+                removeProduto={this.props.removeProduto} 
             />
             )
         })
 
-        const listaDeValores = this.props.produtosNoCarrinho.map((produto) => {
-            return produto.valor
-        })
+        const valorTotal = () => {
+             let soma = 0;
 
-        const valorTotal = (array) => {
-            let soma = 0
-            for (let i = 0; i < array.length; i++)
-                soma = soma + array[i]
-            return soma
+            for (let i of this.props.produtosNoCarrinho){
+                soma = soma + (i.valor*i.qtd);
+            }
+
+            return soma;
+
         }
 
         return (
@@ -49,7 +52,7 @@ class Carrinho extends React.Component {
                     {listaDeProdutos}
                 </div>
 
-                <Total>Valor total: R${valorTotal(listaDeValores)}</Total>
+                <Total>Valor total: R${valorTotal()},00</Total>
             </ContainerCarrinho>
         )
     }
