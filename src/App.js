@@ -1,6 +1,5 @@
 import React from "react";
 import FiltroEsquerdo from "./components/FiltroEsquerdo/FiltroEsquerdo";
-import Produtos from "./components/Produtos/Produtos";
 import Carrinho from "./components/Carrinho/Carrinho";
 import styled from "styled-components";
 import aquaridas from "./components/img/aquaridas.jpeg"
@@ -21,10 +20,6 @@ const DivEsquerda = styled.div`
 
 const DivCentro = styled.div`
   grid-column-start: 2/3;
-
-  img{
-    width: 30%;
-  }
 `;
 
 const DivDireita = styled.div`
@@ -36,8 +31,34 @@ const HeaderProdutos = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  padding-bottom: 0;
 `;
 
+const ContainerProdutos = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 15px;
+`
+
+const Imagens = styled.img`
+  width: 100%;
+  height: 60%;
+`
+
+const CardProduto = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 40vh;
+  border: black 1px solid;
+  padding-bottom: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+`
+const InfoProduto = styled.div`
+  text-align: center;
+`
 
 export default class App extends React.Component {
   state = {
@@ -95,75 +116,75 @@ export default class App extends React.Component {
     ordem: 1,
   };
 
+  componentDidUpdate() {
+    localStorage.setItem("carrinho", JSON.stringify(this.state.produtosNoCarrinho))
+  };
+
+  componentDidMount() {
+    const pNC = JSON.parse(localStorage.getItem("carrinho"))
+    if (pNC) {
+      this.setState({ produtosNoCarrinho: pNC })
+    }
+  };
 
 
   adicionaProduto = (id) => {
 
 
     const lala = this.state.produtosNoCarrinho.map((item) => {
-                
-             return item.id
-           
+
+      return item.id
+
     });
 
 
-    if(lala.includes(id)){
+    if (lala.includes(id)) {
 
-      const listaMaisUm = this.state.produtosNoCarrinho.map((item) => {  
-        if(id === item.id){
-        return {
-          ...item, 
-          qtd: item.qtd + 1 
-         }
-       }
+      const listaMaisUm = this.state.produtosNoCarrinho.map((item) => {
+        if (id === item.id) {
+          return {
+            ...item,
+            qtd: item.qtd + 1
+          }
+        }
         return item
       })
 
-      this.setState({produtosNoCarrinho: listaMaisUm});
+      this.setState({ produtosNoCarrinho: listaMaisUm });
 
-    }else{
+    } else {
       const listaDeUmProduto = this.state.productList.filter((produto) => {
         if (id === produto.id) {
 
           return produto;
 
         }
-  
+
       });
-  
-  
+
+
       const produtoAdicionado = {
         ...listaDeUmProduto[0],
       };
-  
-      const novaLista = [...this.state.produtosNoCarrinho, produtoAdicionado]
-  
-      this.setState({produtosNoCarrinho: novaLista});
 
-    }   
+      const novaLista = [...this.state.produtosNoCarrinho, produtoAdicionado]
+
+      this.setState({ produtosNoCarrinho: novaLista });
+
+    }
 
   };
 
   removeProduto = (id) => {
 
     const novoCart = this.state.produtosNoCarrinho.map((item) => {
-      if (item.id === id){
-        return {...item, qtd: item.qtd - 1}
+      if (item.id === id) {
+        return { ...item, qtd: item.qtd - 1 }
       }
       return item;
     }).filter((item) => item.qtd > 0)
 
-    this.setState({produtosNoCarrinho: novoCart})
-
-    // const listaComProdutoRemovido = this.state.produtosNoCarrinho.filter(
-    //   (produto) => {
-    //     if (id !== produto.id) {
-    //       return produto;
-    //     }
-    //   }
-    // );
-
-    // this.setState({ produtosNoCarrinho: listaComProdutoRemovido });
+    this.setState({ produtosNoCarrinho: novoCart })
   };
 
   inputMin = (e) => {
@@ -177,17 +198,6 @@ export default class App extends React.Component {
   inputNome = (e) => {
     this.setState({ valorInputNome: e.target.value });
   };
-
-  // adicionaProduto = (produto) => {
-  //   console.log("cheguei");
-  //   const produtoAdicionado = { ...this.state.productList[produto.id - 1] };
-  //   const listaComProdutoAdicionado = [
-  //     ...this.state.produtosNoCarrinho,
-  //     produtoAdicionado,
-  //   ];
-
-  //   this.setState({ produtosNoCarrinho: listaComProdutoAdicionado });
-  // };
 
   ordenarProdutos = (e) => {
     this.setState({ ordem: e.target.value });
@@ -243,16 +253,16 @@ export default class App extends React.Component {
       })
       .map((produto) => {
         return (
-          <>
-            <img src={produto.foto} />
-            <div>
+          <CardProduto>
+            <Imagens src={produto.foto} />
+            <InfoProduto>
               <p>{produto.nome}</p>
               <p>R${produto.valor},00</p>
               <button onClick={() => this.adicionaProduto(produto.id)}>
                 Adicionar ao carrinho
               </button>
-            </div>
-          </>
+            </InfoProduto>
+          </CardProduto>
         );
       });
 
@@ -280,7 +290,9 @@ export default class App extends React.Component {
               </select>
             </label>
           </HeaderProdutos>
-          {cardsFiltrados}
+          <ContainerProdutos>
+            {cardsFiltrados}
+          </ContainerProdutos>
         </DivCentro>
         <DivDireita>
           <Carrinho

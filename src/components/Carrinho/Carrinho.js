@@ -5,8 +5,8 @@ import ProdutoCarrinho from './ProdutoCarrinho'
 const ContainerCarrinho = styled.div`
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 20%;
+    width: 100%;
+    height: 90vh;
     border: black 1px solid;
     margin: 10px;
 `
