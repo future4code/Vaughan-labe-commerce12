@@ -2,12 +2,12 @@ import React from "react";
 import FiltroEsquerdo from "./components/FiltroEsquerdo/FiltroEsquerdo";
 import Carrinho from "./components/Carrinho/Carrinho";
 import styled from "styled-components";
-import aquaridas from "./components/img/aquaridas.jpeg";
-import perseidas from "./components/img/perseidas.jpeg";
-import liridas from "./components/img/liridas.jpeg";
-import orionidas from "./components/img/orionidas.jpeg";
-import tauridas from "./components/img/tauridas.jpeg";
-import leonidas from "./components/img/leonidas.jpeg";
+import aquaridas from "./components/img/aquaridas.jpeg"
+import perseidas from "./components/img/perseidas.jpeg"
+import liridas from "./components/img/liridas.jpeg"
+import orionidas from "./components/img/orionidas.jpeg"
+import tauridas from "./components/img/tauridas.jpeg"
+import leonidas from "./components/img/leonidas.jpeg"
 
 const AppContainer = styled.div`
   display: grid;
@@ -20,10 +20,6 @@ const DivEsquerda = styled.div`
 
 const DivCentro = styled.div`
   grid-column-start: 2/3;
-
-  img {
-    width: 30%;
-  }
 `;
 
 const DivDireita = styled.div`
@@ -38,6 +34,32 @@ const HeaderProdutos = styled.div`
   padding-bottom: 0;
 `;
 
+const ContainerProdutos = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 15px;
+`
+
+const Imagens = styled.img`
+  width: 100%;
+  height: 60%;
+`
+
+const CardProduto = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 40vh;
+  border: black 1px solid;
+  padding-bottom: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+`
+const InfoProduto = styled.div`
+  text-align: center;
+`
+
 export default class App extends React.Component {
   state = {
     productList: [
@@ -46,46 +68,46 @@ export default class App extends React.Component {
         nome: "Perseidas",
         valor: 150000,
         foto: perseidas,
-        qtd: 1,
+        qtd: 1
       },
       {
         id: 2,
         nome: "Leônidas",
         valor: 350000,
         foto: leonidas,
-        qtd: 1,
+        qtd: 1
       },
       {
         id: 3,
         nome: "Líridas",
         valor: 200000,
         foto: liridas,
-        qtd: 1,
+        qtd: 1
       },
       {
         id: 4,
         nome: "Oriônidas",
         valor: 450000,
         foto: orionidas,
-        qtd: 1,
+        qtd: 1
       },
       {
         id: 5,
         nome: "Eta Aquáridas",
         valor: 600000,
         foto: aquaridas,
-        qtd: 1,
+        qtd: 1
       },
       {
         id: 6,
         nome: "Táuridas do Sul",
         valor: 810000,
         foto: tauridas,
-        qtd: 1,
+        qtd: 1
       },
     ],
 
-    valorInputMin: "6000",
+    valorInputMin: "",
     valorInputMax: "",
     valorInputNome: "",
 
@@ -94,72 +116,75 @@ export default class App extends React.Component {
     ordem: 1,
   };
 
-  limparFiltros = () => {
-    this.setState({ valorInputMin: "", valorInputMax: "", valorInputNome: "" });
-  };
-
-  esvaziarCarrinho = () => {
-    this.setState({ produtosNoCarrinho: [] });
+  componentDidUpdate() {
+    localStorage.setItem("carrinho", JSON.stringify(this.state.produtosNoCarrinho))
   };
 
   componentDidMount() {
-    const pNC = JSON.parse(localStorage.getItem("carrinho"));
+    const pNC = JSON.parse(localStorage.getItem("carrinho"))
     if (pNC) {
-      this.setState({ produtosNoCarrinho: pNC });
+      this.setState({ produtosNoCarrinho: pNC })
     }
-  }
-  componentDidUpdate() {
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(this.state.produtosNoCarrinho)
-    );
-  }
+  };
+
 
   adicionaProduto = (id) => {
-    const produtosComId = this.state.produtosNoCarrinho.map((item) => {
-      return item.id;
+
+
+    const lala = this.state.produtosNoCarrinho.map((item) => {
+
+      return item.id
+
     });
 
-    if (produtosComId.includes(id)) {
+
+    if (lala.includes(id)) {
+
       const listaMaisUm = this.state.produtosNoCarrinho.map((item) => {
         if (id === item.id) {
           return {
             ...item,
-            qtd: item.qtd + 1,
-          };
+            qtd: item.qtd + 1
+          }
         }
-        return item;
-      });
+        return item
+      })
 
       this.setState({ produtosNoCarrinho: listaMaisUm });
+
     } else {
       const listaDeUmProduto = this.state.productList.filter((produto) => {
         if (id === produto.id) {
+
           return produto;
+
         }
+
       });
+
 
       const produtoAdicionado = {
         ...listaDeUmProduto[0],
       };
 
-      const novaLista = [...this.state.produtosNoCarrinho, produtoAdicionado];
+      const novaLista = [...this.state.produtosNoCarrinho, produtoAdicionado]
 
       this.setState({ produtosNoCarrinho: novaLista });
+
     }
+
   };
 
   removeProduto = (id) => {
-    const novoCart = this.state.produtosNoCarrinho
-      .map((item) => {
-        if (item.id === id) {
-          return { ...item, qtd: item.qtd - 1 };
-        }
-        return item;
-      })
-      .filter((item) => item.qtd > 0);
 
-    this.setState({ produtosNoCarrinho: novoCart });
+    const novoCart = this.state.produtosNoCarrinho.map((item) => {
+      if (item.id === id) {
+        return { ...item, qtd: item.qtd - 1 }
+      }
+      return item;
+    }).filter((item) => item.qtd > 0)
+
+    this.setState({ produtosNoCarrinho: novoCart })
   };
 
   inputMin = (e) => {
@@ -179,9 +204,11 @@ export default class App extends React.Component {
   };
 
   render() {
+
     const qtdProdutos = this.state.produtosNoCarrinho.map((i) => {
-      return i.qtd;
-    });
+      return i.qtd
+    })
+
 
     const cardsFiltrados = this.state.productList
       //FAZ O FILTRO PELO VALOR MINIMO
@@ -246,7 +273,6 @@ export default class App extends React.Component {
             funcaoInputMin={this.inputMin}
             funcaoInputMax={this.inputMax}
             funcaoInputNome={this.inputNome}
-            limparFiltros={this.limparFiltros}
           />
         </DivEsquerda>
         <DivCentro>
@@ -274,7 +300,6 @@ export default class App extends React.Component {
             productList={this.state.productList}
             produtosNoCarrinho={this.state.produtosNoCarrinho}
             removeProduto={this.removeProduto}
-            esvaziarCarrinho={this.esvaziarCarrinho}
           />
         </DivDireita>
       </AppContainer>
