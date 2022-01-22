@@ -3,19 +3,26 @@ import styled from "styled-components";
 import ProdutoCarrinho from "./ProdutoCarrinho";
 
 const ContainerCarrinho = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  height: 20%;
-  border: black 1px solid;
-  margin: 10px;
-`;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    border: black 1px solid;
+    margin: 10px;
+`
+
 const Titulo = styled.h4`
   margin-left: 20px;
-`;
+`
+
 const Total = styled.p`
   margin-left: 20px;
-`;
+`
+
+const Botao = styled.button`
+  width: 100px;
+  margin-left: 20px;
+`
 
 class Carrinho extends React.Component {
   render() {
@@ -48,7 +55,7 @@ class Carrinho extends React.Component {
         <div>{listaDeProdutos}</div>
 
         <Total>Valor total: R${valorTotal()},00</Total>
-        <button onClick={this.props.esvaziarCarrinho}>Esvaziar Carrinho</button>
+        <Botao onClick={this.props.esvaziarCarrinho}>Esvaziar Carrinho</Botao>
       </ContainerCarrinho>
     );
   }
