@@ -7,6 +7,7 @@ const ContainerCarrinho = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #161224;
+  width: 100%;
 `
 
 const Titulo = styled.div`

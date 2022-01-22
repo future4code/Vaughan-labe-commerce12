@@ -11,9 +11,21 @@ import leonidas from "./components/img/leonidas.jpeg"
 import estrelinhas from "./components/img/estrelinhas.svg"
 
 const AppContainer = styled.div`
+  background-color: #161224;
+`
+
+const Header = styled.header` //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ESTILIZACAO HEADER
+  background-color: white;
+  padding: 20px;
+
+  h2{
+    margin: 0;
+  }
+`
+
+const ContainerMain = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  background-color: #161224;
 `;
 
 const DivEsquerda = styled.div`
@@ -94,6 +106,10 @@ const Botao = styled.button`
 
 const InfoProduto = styled.div`
   text-align: center;
+`
+
+const Footer = styled.footer` //<<<<<<<<<<<<<ESTILIZACAO FOOTER, DEIXAR ESPACO PARA O RESTO DO SITE USANDO HEIGHT NO CARRINHO.JS
+  background-color: white;
 `
 
 export default class App extends React.Component {
@@ -314,6 +330,10 @@ export default class App extends React.Component {
 
     return (
       <AppContainer>
+        <Header>
+          <h2>HEADER!!</h2>
+        </Header>
+        <ContainerMain>
         <DivEsquerda>
           <FiltroEsquerdo
             funcaoInputMin={this.inputMin}
@@ -353,6 +373,10 @@ export default class App extends React.Component {
             esvaziarCarrinho={this.esvaziarCarrinho}
           />
         </DivDireita>
+        </ContainerMain>
+        <Footer>
+          <p>footer!!</p>
+        </Footer>
       </AppContainer>
     );
   }
