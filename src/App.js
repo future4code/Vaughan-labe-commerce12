@@ -18,6 +18,7 @@ const AppContainer = styled.div`
   background-color: #161224;
 `;
 
+
 const Header = styled.header`
   display: flex;
   flex-direction: column;
@@ -115,6 +116,8 @@ const HeaderProdutos = styled.div`
   }
 
   @media (max-width: 600px) {
+    border: none;
+
     div {
       flex-direction: column;
     }
@@ -139,6 +142,7 @@ const ContainerProdutos = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 20px;
   }
 `;
 
@@ -372,6 +376,7 @@ export default class App extends React.Component {
   };
 
   esvaziarCarrinho = () => {
+
     this.setState({ produtosNoCarrinho: [] });
   };
 
