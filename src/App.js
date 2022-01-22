@@ -8,10 +8,12 @@ import liridas from "./components/img/liridas.jpeg"
 import orionidas from "./components/img/orionidas.jpeg"
 import tauridas from "./components/img/tauridas.jpeg"
 import leonidas from "./components/img/leonidas.jpeg"
+import estrelinhas from "./components/img/estrelinhas.svg"
 
 const AppContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  background-color: #161224;
 `;
 
 const DivEsquerda = styled.div`
@@ -20,6 +22,10 @@ const DivEsquerda = styled.div`
 
 const DivCentro = styled.div`
   grid-column-start: 2/3;
+  background-color: #161224;
+  color: white;
+  border-right: solid white 1px;
+  border-left: solid white 1px;
 `;
 
 const DivDireita = styled.div`
@@ -30,19 +36,38 @@ const HeaderProdutos = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
+  padding: 0 20px;
   padding-bottom: 0;
 `;
 
 const ContainerProdutos = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding-left: 15px;
+  justify-content: space-between;
+  padding: 1% 2%;
+  padding-bottom: 0;
+  color: black;
+`
+
+const ContainerNomeProduto = styled.div`
+  display: flex;
+  align-content: center;
+  margin-top: 1em;
+
+  img{
+    margin: 0 10px;
+  }
+
+  p{
+    margin: 0;
+    font-weight: bold;
+  }
 `
 
 const Imagens = styled.img`
   width: 100%;
   height: 60%;
+  border-radius: 10px;
 `
 
 const CardProduto = styled.div`
@@ -50,12 +75,23 @@ const CardProduto = styled.div`
   flex-direction: column;
   align-items: center;
   width: 30%;
-  height: 40vh;
-  border: black 1px solid;
+  height: 45vh;
+  border: white 1px solid;
   padding-bottom: 15px;
-  margin-left: 15px;
   margin-bottom: 15px;
+  background-color: #efebff;
+  border-radius: 10px;
 `
+
+const Botao = styled.button`
+  border: none;
+  text-decoration: none;
+  background-color: #161224;
+  color: white;
+  border-radius: 0.5em;
+  padding: 0.5em;
+`
+
 const InfoProduto = styled.div`
   text-align: center;
 `
@@ -137,7 +173,6 @@ export default class App extends React.Component {
 
     });
 
-
     if (lala.includes(id)) {
 
       const listaMaisUm = this.state.produtosNoCarrinho.map((item) => {
@@ -161,7 +196,6 @@ export default class App extends React.Component {
         }
 
       });
-
 
       const produtoAdicionado = {
         ...listaDeUmProduto[0],
@@ -202,6 +236,14 @@ export default class App extends React.Component {
   ordenarProdutos = (e) => {
     this.setState({ ordem: e.target.value });
   };
+
+  esvaziarCarrinho = () => {
+    this.setState({ produtosNoCarrinho: []})
+  }
+
+  limparFiltros = () => {
+    this.setState({ valorInputMin: "", valorInputMax: "", valorInputNome: "" })
+  }
 
   render() {
 
@@ -256,11 +298,15 @@ export default class App extends React.Component {
           <CardProduto>
             <Imagens src={produto.foto} />
             <InfoProduto>
-              <p>{produto.nome}</p>
+              <ContainerNomeProduto>
+                <img src={estrelinhas}/>
+                <p>{produto.nome}</p>
+                <img src={estrelinhas}/>
+              </ContainerNomeProduto>
               <p>R${produto.valor},00</p>
-              <button onClick={() => this.adicionaProduto(produto.id)}>
+              <Botao onClick={() => this.adicionaProduto(produto.id)}>
                 Adicionar ao carrinho
-              </button>
+              </Botao>
             </InfoProduto>
           </CardProduto>
         );
@@ -273,13 +319,17 @@ export default class App extends React.Component {
             funcaoInputMin={this.inputMin}
             funcaoInputMax={this.inputMax}
             funcaoInputNome={this.inputNome}
+            limparFiltros={this.limparFiltros}
+            valorInputMin={this.state.valorInputMin}
+            valorInputMax={this.state.valorInputMax}
+            valorInputNome={this.state.valorInputNome}
           />
         </DivEsquerda>
         <DivCentro>
           <HeaderProdutos>
-            <p>Quantidade de produtos: {cardsFiltrados.length} </p>
-            <label for="ordem">
-              Ordenação:
+            <h3>Quantidade de produtos: {cardsFiltrados.length} </h3>
+            <div>
+              <label for="ordem">Ordenação: </label>
               <select
                 name="ordem"
                 value={this.state.ordem}
@@ -288,7 +338,7 @@ export default class App extends React.Component {
                 <option value={1}>Crescente</option>
                 <option value={-1}>Decrescente</option>
               </select>
-            </label>
+            </div>
           </HeaderProdutos>
           <ContainerProdutos>
             {cardsFiltrados}
@@ -300,6 +350,7 @@ export default class App extends React.Component {
             productList={this.state.productList}
             produtosNoCarrinho={this.state.produtosNoCarrinho}
             removeProduto={this.removeProduto}
+            esvaziarCarrinho={this.esvaziarCarrinho}
           />
         </DivDireita>
       </AppContainer>
