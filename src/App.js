@@ -15,7 +15,6 @@ const AppContainer = styled.div`
   background-color: #161224;
 `
 
-
 const Header = styled.header`
   display: flex;
   flex-direction: column;
@@ -106,8 +105,10 @@ const HeaderProdutos = styled.div`
   }
 
   @media (max-width:600px){
+    border: none;
+
     div {
-    flex-direction: column;
+      flex-direction: column;
     }
   }
 
@@ -131,6 +132,7 @@ const ContainerProdutos = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 20px;
   }
 `
 
@@ -345,7 +347,7 @@ export default class App extends React.Component {
   };
 
   esvaziarCarrinho = () => {
-    this.setState({ produtosNoCarrinho: []})
+    this.setState({ produtosNoCarrinho: [] })
   }
 
   limparFiltros = () => {
@@ -406,9 +408,9 @@ export default class App extends React.Component {
             <Imagens src={produto.foto} />
             <InfoProduto>
               <ContainerNomeProduto>
-                <img src={estrelinhas}/>
+                <img src={estrelinhas} />
                 <p>{produto.nome}</p>
-                <img src={estrelinhas}/>
+                <img src={estrelinhas} />
               </ContainerNomeProduto>
               <p>R${produto.valor},00</p>
               <Botao onClick={() => this.adicionaProduto(produto.id)}>
@@ -422,50 +424,50 @@ export default class App extends React.Component {
     return (
       <AppContainer>
         <Header>
-          <img src={iconPlanet}/>
+          <img src={iconPlanet} />
           <h2>SpaceRain</h2>
           <p>Viaje conosco nessas  oportunidades incriveis de ver de perto as chuvas mais belas do planeta.</p>
         </Header>
         <ContainerMain>
-        <DivEsquerda>
-          <FiltroEsquerdo
-            funcaoInputMin={this.inputMin}
-            funcaoInputMax={this.inputMax}
-            funcaoInputNome={this.inputNome}
-            limparFiltros={this.limparFiltros}
-            valorInputMin={this.state.valorInputMin}
-            valorInputMax={this.state.valorInputMax}
-            valorInputNome={this.state.valorInputNome}
-          />
-        </DivEsquerda>
-        <DivCentro>
-          <HeaderProdutos>
-            <h3>Quantidade de produtos: {cardsFiltrados.length} </h3>
-            <div>
-              <label for="ordem">Ordenação: </label>
-              <select
-                name="ordem"
-                value={this.state.ordem}
-                onChange={this.ordenarProdutos}
-              >
-                <option value={1}>Crescente</option>
-                <option value={-1}>Decrescente</option>
-              </select>
-            </div>
-          </HeaderProdutos>
-          <ContainerProdutos>
-            {cardsFiltrados}
-          </ContainerProdutos>
-        </DivCentro>
-        <DivDireita>
-          <Carrinho
-            quantidade={qtdProdutos}
-            productList={this.state.productList}
-            produtosNoCarrinho={this.state.produtosNoCarrinho}
-            removeProduto={this.removeProduto}
-            esvaziarCarrinho={this.esvaziarCarrinho}
-          />
-        </DivDireita>
+          <DivEsquerda>
+            <FiltroEsquerdo
+              funcaoInputMin={this.inputMin}
+              funcaoInputMax={this.inputMax}
+              funcaoInputNome={this.inputNome}
+              limparFiltros={this.limparFiltros}
+              valorInputMin={this.state.valorInputMin}
+              valorInputMax={this.state.valorInputMax}
+              valorInputNome={this.state.valorInputNome}
+            />
+          </DivEsquerda>
+          <DivCentro>
+            <HeaderProdutos>
+              <h3>Quantidade de produtos: {cardsFiltrados.length} </h3>
+              <div>
+                <label for="ordem">Ordenação: </label>
+                <select
+                  name="ordem"
+                  value={this.state.ordem}
+                  onChange={this.ordenarProdutos}
+                >
+                  <option value={1}>Crescente</option>
+                  <option value={-1}>Decrescente</option>
+                </select>
+              </div>
+            </HeaderProdutos>
+            <ContainerProdutos>
+              {cardsFiltrados}
+            </ContainerProdutos>
+          </DivCentro>
+          <DivDireita>
+            <Carrinho
+              quantidade={qtdProdutos}
+              productList={this.state.productList}
+              produtosNoCarrinho={this.state.produtosNoCarrinho}
+              removeProduto={this.removeProduto}
+              esvaziarCarrinho={this.esvaziarCarrinho}
+            />
+          </DivDireita>
         </ContainerMain>
         <Footer>
           <p>footer!!</p>
