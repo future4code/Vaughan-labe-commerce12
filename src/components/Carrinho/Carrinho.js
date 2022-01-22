@@ -1,27 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import ProdutoCarrinho from "./ProdutoCarrinho";
+import carrinho from "../img/carrinho.svg"
 
 const ContainerCarrinho = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 90vh;
-    border: black 1px solid;
-    margin: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #161224;
 `
 
-const Titulo = styled.h4`
-  margin-left: 20px;
+const Titulo = styled.div`
+  display: flex;
+  align-content: center;
+  background-color: #cec5f0;
+  padding: 0 20px;
+`
+
+const Imagem = styled.img`
+  margin-right: 10px;
 `
 
 const Total = styled.p`
-  margin-left: 20px;
+  padding: 0 20px;
+  color: white;
 `
 
 const Botao = styled.button`
   width: 100px;
-  margin-left: 20px;
+  align-self: center;
+  margin-top: 10px;
+  border: none;
+  text-decoration: none;
+  background-color: #efebff;
+  padding: 0.5em;
 `
 
 class Carrinho extends React.Component {
@@ -50,7 +61,10 @@ class Carrinho extends React.Component {
 
     return (
       <ContainerCarrinho>
-        <Titulo>Carrinho:</Titulo>
+        <Titulo>
+          <Imagem src={carrinho}/>
+          <h2>Carrinho:</h2>
+        </Titulo>
 
         <div>{listaDeProdutos}</div>
 
