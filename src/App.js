@@ -210,6 +210,7 @@ const Footer = styled.footer`
   justify-content: space-between;
   border-top: 1px solid #cec5f0;
 
+  // testar responsividade
   @media screen and (min-device-width: 280px) {
     flex-wrap: wrap;
 `;
