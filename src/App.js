@@ -15,6 +15,7 @@ const AppContainer = styled.div`
   background-color: #161224;
 `
 
+
 const Header = styled.header`
   display: flex;
   flex-direction: column;
@@ -53,18 +54,31 @@ const Header = styled.header`
 const ContainerMain = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  
+  @media (max-width: 1150px){
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const DivEsquerda = styled.div`
   grid-column-start: 1/2;
+
+  @media (max-width: 1150px){
+  padding-bottom: 20px;
+  border-bottom: solid white 1px;
+  }
 `;
 
 const DivCentro = styled.div`
   grid-column-start: 2/3;
   background-color: #161224;
-  color: white;
-  border-right: solid white 1px;
-  border-left: solid white 1px;
+  border-right: solid #cec5f0 1px;
+  border-left: solid #cec5f0 1px;
+
+  @media (max-width: 1150px){
+    border: none;
+  }
 `;
 
 const DivDireita = styled.div`
@@ -77,15 +91,47 @@ const HeaderProdutos = styled.div`
   justify-content: space-between;
   padding: 0 20px;
   padding-bottom: 0;
+  background-color: #cec5f0;
+  height: 71.838px;
+  border-left: 1px solid #161224;
+  border-right: 1px solid #161224;
+
+  div {
+    display: flex;
+    align-items: center; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  }
+
+  @media (max-width: 1150px) and (min-width: 601px){
+    border: none;
+  }
+
+  @media (max-width:600px){
+    div {
+    flex-direction: column;
+    }
+  }
+
 `;
 
 const ContainerProdutos = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 1% 2%;
+  padding: 2% 2%;
   padding-bottom: 0;
   color: black;
+
+  @media (max-width: 1150px) and (min-width: 601px){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 20px;
+  }
+
+  @media (max-width:600px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const ContainerNomeProduto = styled.div`
@@ -120,6 +166,19 @@ const CardProduto = styled.div`
   margin-bottom: 15px;
   background-color: #efebff;
   border-radius: 10px;
+
+  @media (max-width: 1150px) and (min-width: 601px){
+    width: 45vw;
+    margin-bottom: 20px;
+    height: 40vh;
+    justify-self: center;
+  }
+
+  @media (max-width:600px){
+    width: 60vw;
+    margin-bottom: 20px;
+    height: 40vh;
+  }
 `
 
 const Botao = styled.button`
@@ -137,6 +196,11 @@ const InfoProduto = styled.div`
 
 const Footer = styled.footer` //<<<<<<<<<<<<<ESTILIZACAO FOOTER, DEIXAR ESPACO PARA O RESTO DO SITE USANDO HEIGHT NO CARRINHO.JS
   background-color: white;
+  padding: 1em;
+
+  p{
+    margin: 0;
+  }
 `
 
 export default class App extends React.Component {
