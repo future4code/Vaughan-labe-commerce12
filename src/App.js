@@ -8,17 +8,46 @@ import liridas from "./components/img/liridas.jpeg"
 import orionidas from "./components/img/orionidas.jpeg"
 import tauridas from "./components/img/tauridas.jpeg"
 import leonidas from "./components/img/leonidas.jpeg"
+import iconPlanet from "./components/img/iconplannet.png"
 import estrelinhas from "./components/img/estrelinhas.svg"
 
 const AppContainer = styled.div`
   background-color: #161224;
 `
 
-const Header = styled.header` //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ESTILIZACAO HEADER
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
   padding: 20px;
+  background-color: #161224;
+  background-image: url('https://t8j5n5j3.rocketcdn.me/wp-content/uploads/2019/08/estrela-cadente-o-que-e-e-quatro-dicas-para-conseguir-ve-la-1024x576.png');
 
   h2{
-    margin: 0;
+    background-image: linear-gradient(to right, #F0F8FF, #cec5f0, whitesmoke, #4682B4, #cec5f0, #363636);
+    background-clip: text;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+     color: black;
+     margin: auto;
+     font-size: 3em;
+  }
+
+  p{
+    color: #fff;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 
+      1px -1px 0 #2f5d87;
+    font-size: 1.3em;
+  }
+
+  img{
+    width: 90px;
+    margin: auto;
   }
 `
 
@@ -393,7 +422,9 @@ export default class App extends React.Component {
     return (
       <AppContainer>
         <Header>
-          <h2>HEADER!!</h2>
+          <img src={iconPlanet}/>
+          <h2>SpaceRain</h2>
+          <p>Viaje conosco nessas  oportunidades incriveis de ver de perto as chuvas mais belas do planeta.</p>
         </Header>
         <ContainerMain>
         <DivEsquerda>
