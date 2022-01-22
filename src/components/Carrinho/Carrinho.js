@@ -7,7 +7,17 @@ const ContainerCarrinho = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #161224;
-  width: 100%;
+  height: calc(100vh - 125.2px);
+
+  @media (max-width: 1150px) and (min-width: 601px){
+    height: 100%;
+    padding: 15px;
+  }
+
+  @media (max-width:600px){
+    height: 100%;
+    padding: 15px;
+  }
 `
 
 const Titulo = styled.div`
