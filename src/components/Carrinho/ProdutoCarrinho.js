@@ -13,6 +13,10 @@ const Botao = styled.button`
   border: none;
   text-decoration: none;
   background-color: #efebff;
+
+  &:hover{
+    background-color: #9986c4;
+  }
 `
 
 class ProdutoCarrinho extends React.Component {

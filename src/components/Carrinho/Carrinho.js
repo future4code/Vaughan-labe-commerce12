@@ -44,6 +44,10 @@ const Botao = styled.button`
   text-decoration: none;
   background-color: #efebff;
   padding: 0.5em;
+
+  &:hover{
+    background-color: #9986c4;
+  }
 `
 
 class Carrinho extends React.Component {

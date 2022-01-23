@@ -43,6 +43,10 @@ const Botao = styled.button`
   text-decoration: none;
   background-color: #efebff;
   padding: 0.5em;
+
+  &:hover{
+    background-color: #9986c4;
+  }
 `
 
 class FiltroEsquerdo extends React.Component {
