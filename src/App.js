@@ -108,7 +108,7 @@ const HeaderProdutos = styled.div`
 
   div {
     display: flex;
-    align-items: center; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    align-items: center;
   }
 
   @media (max-width: 1150px) and (min-width: 601px) {
@@ -207,27 +207,48 @@ const InfoProduto = styled.div`
 `;
 
 const Footer = styled.footer`
-  //<<<<<<<<<<<<<ESTILIZACAO FOOTER, DEIXAR ESPACO PARA O RESTO DO SITE USANDO HEIGHT NO CARRINHO.JS
   display: flex;
   background-color: #161224;
-  padding: 2em;
+  padding: 1em 2em;
   justify-content: space-between;
   border-top: 1px solid #cec5f0;
 
-  // testar responsividade
-  @media screen and (min-device-width: 280px) {
+  @media (max-width: 450px) {
+    flex-direction: column;
     flex-wrap: wrap;
+    align-items: center;
+  }
 `;
 
 const RightFooter = styled.div`
   color: white;
   font-weight: 700;
+
+  @media (max-width: 450px){
+    padding-top: 1em;
+    text-align: center;
+    margin-left: 0;
+  }
 `;
 
 const LeftFooter = styled.div`
   color: white;
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+
+  p{
+    margin: 0;
+  }
+
+  @media (max-width: 450px) {
+    margin-left: 0;
+  }
 `;
+
 const SocialMediaLogos = styled.img`
   max-width: 2em;
   max-height: 2em;
@@ -235,12 +256,10 @@ const SocialMediaLogos = styled.img`
 `;
 
 const FooterIcon = styled.img`
-  max-width: 3em;
-  max-height: 3em;
+  max-width: 4em;
+  max-height: 4em;
   padding: 1em;
 `;
-
-const FooterContact = styled.div``;
 
 export default class App extends React.Component {
   state = {
