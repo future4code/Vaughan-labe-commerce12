@@ -200,6 +200,10 @@ const Botao = styled.button`
   color: white;
   border-radius: 0.5em;
   padding: 0.5em;
+
+  &:hover{
+    background-color: #443761;
+  }
 `;
 
 const InfoProduto = styled.div`
